@@ -94,7 +94,7 @@ Standard-Aufgabe in Embedded C: Einzelne Bits in einem Register verändern, *ohn
 - *Bit Umschalten (Toggle):* `REG ^= (1 << N);`
 - *Bit Prüfen:* `if (REG & (1 << N)) { ... }`
 
-= 5. Nebenläufigkeit, Synchronisation & Interrupts
+= 5.Nebenläufigkeit, Synchronisation & Interrupts
 
 == Semaphoren & Mutexe
 Werden genutzt, um Ressourcen (z.B. Variablen, Hardware) vor gleichzeitigem Zugriff mehrerer Tasks/Threads zu schützen.
@@ -110,3 +110,42 @@ Werden genutzt, um Ressourcen (z.B. Variablen, Hardware) vor gleichzeitigem Zugr
   1. So kurz und schnell wie möglich ausführen.
   2. Keine blockierenden Aufrufe (kein `printf`, `malloc`, `delay`).
   3. Globale Variablen, die in der ISR geändert und in der `main()` gelesen werden, MÜSSEN als `volatile` deklariert sein!
+
+= 6. Wichtige Standard-Funktionen (I/O)
+
+== printf()
+Zur formatierten Textausgabe (benötigt `#include <stdio.h>`). 
+*Embedded-Hinweis:* `printf` verbraucht oft sehr viel Speicher (Flash) und Laufzeit. Auf Mikrocontrollern muss die Ausgabe meist hardwarenah auf eine serielle Schnittstelle (z.B. UART) umgeleitet werden (*Retargeting*).
+
+*Wichtige Format-Specifier:*
+- `%d` / `%i`: Vorzeichenbehaftete Ganzzahl (int)
+- `%u`: Vorzeichenlose Ganzzahl (unsigned int)
+- `%x` / `%X`: Hexadezimal (klein-/großgeschrieben) -> *Sehr wichtig für Register!*
+- `%f`: Fließkommazahl (float/double)
+- `%c`: Einzelnes Zeichen (char)
+- `%s`: Zeichenkette (String, char-Pointer)
+- `%p`: Speicheradresse (Pointer)
+
+*Formatierung & Padding (Klausur-Klassiker):*
+- `%04x`: Hex-Wert mit führenden Nullen auf exakt 4 Stellen auffüllen.
+- `%8d`: Integer rechtsbündig auf eine Breite von 8 Zeichen setzen (mit Leerzeichen aufgefüllt).
+- `%.2f`: Float auf 2 Nachkommastellen runden.
+
+```c
+#include <stdio.h>
+#include <stdint.h>
+
+int main(void) {
+    uint16_t reg_val = 255;
+    float temp = 23.456;
+    int *ptr = (int*)0x20000000;
+
+    // Ausgabe: "Register: 0x00FF | Temp: 23.46"
+    printf("Register: 0x%04X | Temp: %.2f\n", reg_val, temp);
+    
+    // Ausgabe von Speicheradressen
+    printf("Adresse liegt bei: %p\n", (void*)ptr);
+    
+    return 0;
+}
+```
