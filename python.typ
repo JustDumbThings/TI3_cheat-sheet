@@ -40,6 +40,33 @@
 - `.lower()` / `.upper()`: Transformiert in Klein- bzw. Großbuchstaben.
 - `.startswith(prefix)` / `.endswith(suffix)`: Liefert `True` oder `False`.
 
+
+== F-Strings 
+In Python entfällt die Puffer-Verwaltung. Strings werden dynamisch im Speicher erzeugt. F-Strings (Präfix `f`) werten Ausdrücke in den geschweiften Klammern `{}` direkt zur Laufzeit aus.
+
+*Wichtige Format-Specifier (Klausur-Klassiker):*
+- `:.2f`: Fließkommazahl (float) auf 2 Nachkommastellen runden.
+- `:04X`: Hexadezimalwert (großgeschrieben), mit Nullen auf 4 Stellen aufgefüllt.
+- `:08d`: Integer, mit führenden Nullen auf 8 Stellen aufgefüllt.
+- `:<10` / `:>10` / `:^10`: Text linksbündig / rechtsbündig / zentriert auf 10 Zeichen Breite ausrichten (aufgefüllt mit Leerzeichen).
+
+```python
+messwert = 1024
+spannung = 3.3456
+reg_val = 255
+
+# F-String Syntax: f"Text {variable:formatierung}"
+ausgabe = f"Wert: {messwert:05d}, U: {spannung:.1f}V"
+# -> "Wert: 01024, U: 3.3V"
+
+hex_ausgabe = f"Register: 0x{reg_val:04X}"
+# -> "Register: 0x00FF"
+
+ausrichtung = f"|{messwert:<6}|{messwert:>6}|"
+# -> "|1024  |  1024|"
+```
+
+
 == Listen-Methoden (Modifizieren die Liste meist in-place!)
 - `.append(x)`: Hängt das Element `x` hinten an die Liste an.
 - `.extend(iter)`: Hängt alle Elemente des Iterables `iter` an die Liste an.
@@ -48,6 +75,7 @@
 - `.remove(x)`: Entfernt das *erste* Vorkommen von `x` (wirft ValueError, wenn nicht existent).
 - `.clear()`: Entfernt alle Elemente aus der Liste.
 - `.sort(key=None, reverse=False)`: Sortiert die Original-Liste (Gegensatz zu `sorted()`).
+- `.reverse()`: Reverse the list.
 
 == Set-Operationen (Mengenlehre)
 Sets filtern Duplikate automatisch heraus. Logische Verknüpfungen (Bsp: `a = {1, 2}`, `b = {2, 3}`):
