@@ -32,7 +32,6 @@
       #set text(size: 8pt, fill: rgb("#718096"))
       #grid(
         columns: (1fr, 1fr),
-        [Cheat Sheet],
         align(right, context counter(page).display("1 / 1", both: true))
       )
     ]
