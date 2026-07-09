@@ -111,7 +111,12 @@ Zwei zwingende Komponenten für jede rekursive Funktion:
 
 == Slicing, Comprehensions & Match-Case
 - *Slicing:* `sequence[start:stop:step]` (stop ist exklusiv!). Invertieren: `liste[::-1]`
-- *List Comprehension:* `[expr for item in iter if cond]`
+- *List Comprehension:* ```Python 
+normal = [expr for item in iter if cond]
+mit_else = [wert_wenn_wahr if bedingung else wert_wenn_falsch for element in iterable]
+
+```
+
 - *Match-Case (ab 3.10):* ```python
 match kommando:
     case "start" | "run": return "Startet" # OR-Verknüpfung
