@@ -146,6 +146,20 @@ else:
     print("Läuft NUR, wenn KEIN Fehler auftrat")
 finally:
     print("Läuft IMMER (gut für Aufräumarbeiten/close)")
+
+# ODER
+
+try:
+    x = 10
+    # The condition is false, so it triggers an AssertionError
+    assert x == 20, "x does not equal 20"
+    print("This line will not run.")
+
+except AssertionError as error:
+    # Captures the optional error message
+    print(f"Caught an assertion failure: {error}") 
+
+print("The program continues running normally.")
 ```
 
 == Kontextmanager & CSV-Handling
@@ -182,16 +196,18 @@ from abc import ABC, abstractmethod
 class Konto(ABC): # Abstrakte Basisklasse
     bank_name = "Sparkasse" # Klassenattribut (statisch, geteilt von allen)
 
-    def __init__(self, inhaber):
+    def __init__(self, inhaber): 
         self.inhaber = inhaber   # Public (+)
         self.__saldo = 0         # Private (-)
 
     @property
-    def saldo(self):             # GETTER (Aufruf ohne Klammern: k.saldo)
+    def saldo(self):             # GETTER (Aufruf ohne Klammern: k.saldo) 
+                                 # GETTER muss gleich heißen wie der SETTER
         return self.__saldo
 
     @saldo.setter
     def saldo(self, wert):       # SETTER (Zuweisung: k.saldo = 100)
+                                 # GETTER muss gleich heißen wie der SETTER
         if wert < 0: raise ValueError()
         self.__saldo = wert
 
